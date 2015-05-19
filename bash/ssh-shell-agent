@@ -1,0 +1,18 @@
+#!/bin/sh
+# ######################################
+# ssh agent script because i'm to lazy
+# to type my pass all time
+#
+
+umask 002
+
+SSH_ENV=~/tmp/environment
+
+init_agent() {
+    agent_count=`ps aux|egrep "$USER.*ssh-agent" |grep -v grep |wc -l`
+    [ $agent_count -lt 1 ] && /usr/bin/ssh-agent &> ${SSH_ENV}
+    source ${SSH_ENV}
+    /usr/bin/ssh-add;
+
+}
+init_agent
