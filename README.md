@@ -7,6 +7,8 @@ Some tools and scripts created for wathever reasons.
 Contains bash scripts
 ### shell-ssh-agent 
 ssh-agent to run on non X applications
+### tssh
+tmux clusterized ssh session
 
 ## python
 Contains python scripts
