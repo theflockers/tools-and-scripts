@@ -1,0 +1,35 @@
+#!/bin/bash
+# 
+# clusterized ssh tmux session
+#
+# get the first host
+first=$1
+shift
+
+# pick all hosts to loop through them
+hosts=( $@ )
+
+sessname="$(echo $RANDOM)-sess"
+
+tmux new-session -s $sessname -n "cluster" -d
+
+sizes=$(tmux display -p '#{pane_width} #{pane_height}')
+
+tmux select-layout -t "${sessname}:0" tiled
+tmux send-keys -t "${sessname}:0" "echo ${first}" C-j
+
+for (( i=1; i<${#hosts[@]}; i++ )); do
+    # split the window
+    tmux split-window 
+    # adjust the pane to always fit
+    tmux select-layout -t $i tiled
+    # ssh to the host
+    tmux send-keys -t "${i}" "echo ${hosts[$i]}" C-j
+
+    # some sleep to not flood
+    sleep 0.3
+done
+
+# syncrhonize panes and attach session
+tmux set-option synchronize-panes on
+tmux attach -t $sessname
