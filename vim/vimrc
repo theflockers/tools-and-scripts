@@ -1,0 +1,56 @@
+set rtp+=/Users/lemendes/.pyenv/versions/3.7.4//envs/developer/lib/python3.7/site-packages/powerline/bindings/vim/
+set laststatus=2
+set t_Co=256
+
+set nocompatible              " be iMproved, required
+
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+""" Plugins starts here
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+"Bundle 'Valloric/YouCompleteMe'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+""" Plugins ends here
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" custom
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set bg=dark
+set colorcolumn=80
+syn on
+colorscheme slate
+set foldlevel=99
+set nu
+set hlsearch
+"flake8 check map to CTRL+F
+autocmd FileType python map <buffer> <C-f> :call flake8#Flake8()<CR>
+"also at startup
+autocmd FileType,VimEnter python call flake8#Flake8()
+let g:flake8_quickfix_height=10
+let g:flake8_show_in_file=1  " show
