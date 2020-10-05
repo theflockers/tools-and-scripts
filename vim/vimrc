@@ -27,6 +27,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rodjek/vim-puppet'
 """ Plugins ends here
 
 " Return to last edit position when opening files (You want this!)
@@ -43,8 +44,12 @@ set shiftwidth=4
 set expandtab
 set bg=dark
 set colorcolumn=80
+set cursorcolumn
+set cursorline
+hi CursorColumn cterm=NONE ctermbg=darkgrey ctermfg=grey guibg=darkgrey guifg=grey
 syn on
-colorscheme slate
+"colorscheme slate
+colorscheme gruvbox
 set foldlevel=99
 set nu
 set hlsearch
@@ -54,3 +59,10 @@ autocmd FileType python map <buffer> <C-f> :call flake8#Flake8()<CR>
 autocmd FileType,VimEnter python call flake8#Flake8()
 let g:flake8_quickfix_height=10
 let g:flake8_show_in_file=1  " show
+
+"function YamlLint()
+
+"autocmd FileType yaml map <buffer> <C-l> :call YamlLint()<CR>
+
+" puppet lint
+let g:syntastic_puppet_puppetlint_args='--no-autoloader_layout-check'
